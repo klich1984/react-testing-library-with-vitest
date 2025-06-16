@@ -93,3 +93,9 @@ or if you use npm:
 ```
 npm run start
 ```
+
+## Dependencies
+
+```
+yarn add -D @testing-library/dom @testing-library/jest-dom @testing-library/react jsdom vitest -D
+```
