@@ -1,3 +1,3 @@
 export const handleValidateSuperAdmin = (role: string) => {
-  return role === "superadmin";
-};
+  return role === 'superadmin'
+}

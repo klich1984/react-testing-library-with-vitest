@@ -1,17 +1,17 @@
 export interface Order {
-  id: string;
+  id: string
   customer: {
-    name: string;
-    email: string;
-  };
+    name: string
+    email: string
+  }
   products: Array<{
-    id: string;
-    name: string;
-    price: number;
-    quantity: number;
-  }>;
-  total: number;
-  status: string;
-  orderDate: string;
-  paymentMethod: string;
+    id: string
+    name: string
+    price: number
+    quantity: number
+  }>
+  total: number
+  status: string
+  orderDate: string
+  paymentMethod: string
 }

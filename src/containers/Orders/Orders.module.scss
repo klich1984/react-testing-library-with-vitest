@@ -1,11 +1,9 @@
 @import "../../styles/variables.scss";
 
 .orders {
-  background: linear-gradient(
-    135deg,
-    rgba($primary-color, 0.1),
-    rgba($secondary-color, 0.1)
-  );
+  background: linear-gradient(135deg,
+      rgba($primary-color, 0.1),
+      rgba($secondary-color, 0.1));
   color: $text-color;
 
   &__container {

@@ -1,18 +1,18 @@
-import { StatusBadge } from "../../components/StatusBadge";
-import { Order } from "../../types/Orders";
-import classes from "./OrderItem.module.scss";
+import { StatusBadge } from '../../components/StatusBadge'
+import { Order } from '../../types/Orders'
+import classes from './OrderItem.module.scss'
 
 export const OrderItem: React.FC<{ order: Order }> = ({ order }) => {
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
+    const date = new Date(dateString)
+    return date.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  }
 
   return (
     <div className={classes.OrderItem}>
@@ -23,9 +23,7 @@ export const OrderItem: React.FC<{ order: Order }> = ({ order }) => {
       </div>
       <div className={classes.OrderItem__customer}>
         <p className={classes.OrderItem__customerName}>{order.customer.name}</p>
-        <p className={classes.OrderItem__customerEmail}>
-          {order.customer.email}
-        </p>
+        <p className={classes.OrderItem__customerEmail}>{order.customer.email}</p>
       </div>
       <div className={classes.OrderItem__products}>
         <h4 className={classes.OrderItem__productsTitle}>Order Items:</h4>
@@ -44,16 +42,14 @@ export const OrderItem: React.FC<{ order: Order }> = ({ order }) => {
         <div className={classes.OrderItem__payment}>
           <p className={classes.OrderItem__paymentLabel}>Payment Method</p>
           <p className={classes.OrderItem__paymentMethod}>
-            {order.paymentMethod.replace("_", " ")}
+            {order.paymentMethod.replace('_', ' ')}
           </p>
         </div>
         <div className={classes.OrderItem__total}>
           <p className={classes.OrderItem__totalLabel}>Total Amount</p>
-          <p className={classes.OrderItem__totalAmount}>
-            ${order.total.toFixed(2)}
-          </p>
+          <p className={classes.OrderItem__totalAmount}>${order.total.toFixed(2)}</p>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
