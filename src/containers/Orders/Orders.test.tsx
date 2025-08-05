@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { SessionProvider, useSession } from '../../context/AuthContext'
 import { render, screen, waitFor } from '@testing-library/react'
 import { getOrders } from '../../services/getOrders'
+import { getSummaryOrders } from '../../utils/sumamry'
 
 vi.mock('../../services/getOrders', () => ({
   getOrders: vi.fn(),
@@ -88,6 +89,44 @@ describe('<Orders />', () => {
       const orders = screen.getAllByRole('heading', { level: 3 })
 
       expect(orders).toHaveLength(mockOrders.length)
+    })
+  })
+
+  it('Deberia de mostrar seccion para superadmin con los cálculos correctos', async () => {
+    // Arrange: Preparamos los mocks y renderizamos el componente
+    mockgetOrders.mockResolvedValue(mockOrders)
+    handleRenderOrders('superadmin')
+
+    await waitFor(() => {
+      // Act: Obtenemos los valores esperados usando la misma función de utilidad
+      const { totalOrders, averageOrderValue, totalValue, ordersByStatus } =
+        getSummaryOrders(mockOrders)
+
+      // Assert: Comparamos los valores esperados con lo que se muestra en pantalla
+      // 1. Test para Total Orders
+      const totalOrdersElement = screen.getByTestId('totalOrders').textContent
+
+      expect(totalOrdersElement).toBe(totalOrders.toString())
+
+      // 2. Test para Total Value
+      const totalValueElement = screen.getByTestId('totalValues')
+      const expectTotalValue = `$${totalValue.toFixed(2)}`
+
+      expect(totalValueElement.textContent).toBe(expectTotalValue)
+
+      // 3. Test para Average Order Value
+      const averageValueElement = screen.getByTestId('averageOrderValue')
+      const expectAverageValue = `$${averageOrderValue.toFixed(2)}`
+
+      expect(averageValueElement.textContent).toBe(expectAverageValue)
+
+      // 4. Test para Orders by Status
+      // Iteramos sobre el objeto de estados que calculamos
+      Object.entries(ordersByStatus).forEach(([status, count]) => {
+        const statusCountElement = screen.getByTestId(`status-count-${status}`)
+
+        expect(statusCountElement.textContent).toBe(count.toString())
+      })
     })
   })
 })
