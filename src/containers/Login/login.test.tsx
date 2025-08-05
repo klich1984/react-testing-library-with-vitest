@@ -77,4 +77,24 @@ describe('<Login />', () => {
       expect(mockNavigate).toHaveBeenCalledWith('/orders')
     })
   })
+
+  it('debería cambiar la visibilidad de la contraseña al hacer clic en el botón "show/hide"', () => {
+    handleLogin()
+
+    const passwordInput = screen.getByPlaceholderText('Password')
+    const toggleButton = screen.getByRole('button', { name: /show/i }) // La 'i' en /show/i hace que la búsqueda no distinga mayúsculas de minúsculas.
+
+    expect(passwordInput).toHaveAttribute('type', 'password')
+    expect(toggleButton).toBeInTheDocument()
+
+    // Simular click para mostrar contraseña
+    fireEvent.click(toggleButton)
+    expect(passwordInput).toHaveAttribute('type', 'text')
+    expect(screen.getByRole('button', { name: /hide/i })).toBeInTheDocument()
+
+    // Simular click para ocultar contraseña
+    fireEvent.click(toggleButton)
+    expect(passwordInput).toHaveAttribute('type', 'password')
+    expect(screen.getByRole('button', { name: /show/i })).toBeInTheDocument()
+  })
 })
